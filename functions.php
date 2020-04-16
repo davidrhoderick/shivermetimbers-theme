@@ -38,6 +38,10 @@ if(!class_exists('Timber')) {
 	return;
 }
 
+// @ini_set('upload_max_size' , '64M');
+// @ini_set('post_max_size', '64M');
+// @ini_set('max_execution_time', '300');
+
 /**
  * Sets the directories (inside your theme) to find .twig files
  */
@@ -56,10 +60,6 @@ define('ACF_PATH', get_stylesheet_directory() . '/vendor/advanced-custom-fields/
 define('ACF_URL', get_stylesheet_directory_uri() . '/vendor/advanced-custom-fields/advanced-custom-fields-pro/');
 
 include_once(ACF_PATH . 'acf.php');
-
-// @ini_set('upload_max_size' , '64M');
-// @ini_set('post_max_size', '64M');
-// @ini_set('max_execution_time', '300');
 
 /**
  * We're going to configure our theme inside of a subclass of Timber\Site
@@ -81,9 +81,9 @@ class ShiverMeTimbersSite extends Timber\Site {
 
 		add_filter('get_image_tag_class',array($this, 'use_only_imgfluid_class'));
 
-		if($lazyLoad) {
-			add_filter('get_image_tag_class',array($this, 'add_lazyload_classes'));
-		}
+		// if($lazyLoad) {
+			// add_filter('get_image_tag_class',array($this, 'add_lazyload_classes'));
+		// }
 
     add_filter('post_thumbnail_html', array($this, 'remove_width_attribute'), 10);
     add_filter('image_send_to_editor', array($this, 'remove_width_attribute'), 10);
@@ -107,7 +107,7 @@ class ShiverMeTimbersSite extends Timber\Site {
 
 		add_filter('clean_url', array($this, 'add_async_forscript'), 11, 1);
 
-		acf_add_options_page('Site Options');
+		// acf_add_options_page('Site Options');
 		
 		parent::__construct();
 	}
@@ -182,7 +182,7 @@ class ShiverMeTimbersSite extends Timber\Site {
 	}
 
 	public function sort_image_sizes() {
-		$all_image_sizes = get_image_sizes();
+		$all_image_sizes = $this->get_image_sizes();
 
 		uasort($all_image_sizes, function($a, $b) {
 			return $b['width'] - $a['width'];
