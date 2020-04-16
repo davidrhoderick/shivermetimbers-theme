@@ -1,7 +1,7 @@
 <?php
 /**
- * Shiver Me Timbers Theme
- * https://github.com/davidrhoderick/shivermetimbers-theme
+ * <%= themename %> version <%= version %>
+ * <%= repository %>
  *
  * @package  WordPress
  */
@@ -58,7 +58,7 @@ Timber::$autoescape = false;
  * We're going to configure our theme inside of a subclass of Timber\Site
  * You can move this to its own file and include here via php's include("MySite.php")
  */
-class ShiverMeTimbersSite extends Timber\Site {
+class <%= functionsafe %>Site extends Timber\Site {
 	/** Add timber support. */
 	public function __construct() {
 		add_action('after_setup_theme', array($this, 'theme_supports'));
@@ -451,4 +451,4 @@ class ShiverMeTimbersSite extends Timber\Site {
 	}
 }
 
-new ShiverMeTimbersSite();
+new <%= functionsafe %>Site();
